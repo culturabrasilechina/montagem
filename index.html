@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Montagem Final</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .carousel-item { transition: opacity 0.8s ease, transform 0.8s ease; }
+    </style>
+</head>
+<body class="bg-gray-100/50">
+    <div id="app" class="flex justify-center w-full min-h-screen lg:p-6">
+        </div>
+
+    <script>
+        // Esta função vai buscar os dados que o CMS salvar em um arquivo JSON
+        async function loadContent() {
+            const response = await fetch('./content/portal.json');
+            const data = await response.json();
+            renderSite(data);
+        }
+
+        function renderSite(data) {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="relative w-full max-w-[1920px] bg-[#f8f9fa] lg:rounded-[36px] lg:shadow-2xl lg:border-[8px] lg:border-gray-800 overflow-hidden flex flex-col pb-12">
+                    <div class="relative w-full h-40 lg:h-72 bg-gradient-to-br from-blue-600 to-blue-900 flex flex-col items-center justify-center rounded-b-[2rem] lg:rounded-b-[4rem]">
+                        <div class="z-10 bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-2xl shadow-2xl border-4 border-white transform -rotate-2">
+                            <h1 class="text-white font-black text-2xl lg:text-5xl italic tracking-wider text-center">${data.titulo_principal}</h1>
+                        </div>
+                    </div>
+
+                    <div class="px-6 mt-12 max-w-5xl mx-auto w-full">
+                        <div class="relative w-full h-44 lg:h-96 bg-white rounded-[3rem] overflow-hidden shadow-lg animate-float border-4 border-white">
+                            ${data.carrossel.map((item, i) => `
+                                <div class="carousel-item absolute inset-0 flex items-center justify-center ${i === 0 ? 'opacity-100' : 'opacity-0 scale-95'}" style="background: ${item.cor_fundo}">
+                                    <div class="text-center">
+                                        <img src="${item.imagem}" class="h-24 lg:h-48 mb-4 mx-auto object-contain">
+                                        <p class="font-black uppercase lg:text-3xl tracking-widest text-blue-900">${item.texto}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 px-6 mt-12">
+                        ${data.categorias.map(cat => `
+                            <div onclick="window.open('${cat.link}', '_blank')" class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col h-32 lg:h-48 cursor-pointer hover:scale-105 transition-transform">
+                                <div class="flex-1 flex items-center justify-center bg-gray-50 text-4xl lg:text-6xl text-blue-500">
+                                    <i class="${cat.icone}"></i>
+                                </div>
+                                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 py-3 text-center">
+                                    <span class="text-white font-black text-xs lg:text-sm uppercase">${cat.nome}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            startCarousel();
+        }
+
+        function startCarousel() {
+            let current = 0;
+            const items = document.querySelectorAll('.carousel-item');
+            if (items.length <= 1) return;
+            setInterval(() => {
+                items[current].classList.replace('opacity-100', 'opacity-0');
+                current = (current + 1) % items.length;
+                items[current].classList.replace('opacity-0', 'opacity-100');
+            }, 5000);
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>
