@@ -1,0 +1,37 @@
+{
+  "titulo_principal": "MONTAGEM FINAL 总装巴西工厂",
+  "carrossel": [
+    {
+      "texto": "Aviso de Segurança",
+      "imagem": "https://cdn-icons-png.flaticon.com/512/1161/1161388.png",
+      "cor_fundo": "#e0f2fe"
+    },
+    {
+      "texto": "Metas do Mês",
+      "imagem": "https://cdn-icons-png.flaticon.com/512/3135/3135673.png",
+      "cor_fundo": "#dcfce3"
+    }
+  ],
+  "categorias": [
+    {
+      "nome": "Transporte",
+      "icone": "fa-solid fa-bus",
+      "link": "https://seulink.com/transporte"
+    },
+    {
+      "nome": "Cardápio",
+      "icone": "fa-solid fa-utensils",
+      "link": "https://seulink.com/cardapio"
+    },
+    {
+      "nome": "Calendário",
+      "icone": "fa-regular fa-calendar-days",
+      "link": "https://seulink.com/calendario"
+    },
+    {
+      "nome": "CIPA",
+      "icone": "fa-solid fa-hard-hat",
+      "link": "https://seulink.com/cipa"
+    }
+  ]
+}
