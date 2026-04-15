@@ -7,75 +7,199 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+        /* Ajuste para o Google Sites */
+        body, html { margin: 0; padding: 0; overflow-x: hidden; background-color: transparent; font-family: sans-serif; }
+        
+        .google-sites-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding-bottom: 60px; /* Respiro invisível para não cortar no Google Sites */
+        }
+
+        /* Flutuação do Carrossel */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
         .animate-float { animation: float 4s ease-in-out infinite; }
         .carousel-item { transition: opacity 0.8s ease, transform 0.8s ease; }
     </style>
 </head>
 <body class="bg-gray-100/50">
-    <div id="app" class="flex justify-center w-full min-h-screen lg:p-6">
+
+<div class="google-sites-wrapper px-0 lg:px-6 lg:pt-6">
+    <div class="relative w-full max-w-[1920px] bg-[#f8f9fa] lg:rounded-[36px] lg:shadow-2xl lg:border-[8px] lg:border-gray-800 overflow-hidden flex flex-col pb-8 sm:pb-12">
+
+        <div class="relative w-full h-40 sm:h-56 lg:h-72 bg-gradient-to-br from-blue-500 to-blue-800 flex flex-col items-center justify-center overflow-hidden lg:rounded-t-[28px] rounded-b-[2rem] lg:rounded-b-[4rem] shadow-sm">
+            <div class="absolute inset-0 bg-white opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);"></div>
+            <div class="z-10 bg-gradient-to-r from-yellow-400 to-orange-500 px-8 sm:px-16 py-2 sm:py-4 lg:py-6 rounded-xl sm:rounded-3xl shadow-2xl border-2 sm:border-4 border-white transform -rotate-2 mt-2">
+                <h1 class="text-white font-black text-xl sm:text-3xl lg:text-5xl italic tracking-wider text-center leading-tight">
+                    MONTAGEM FINAL<br>
+                    <span class="text-sm sm:text-xl lg:text-2xl font-bold">总装巴西工厂</span>
+                </h1>
+            </div>
         </div>
 
-    <script>
-        // Esta função vai buscar os dados que o CMS salvar em um arquivo JSON
-        async function loadContent() {
-            const response = await fetch('./content/portal.json');
-            const data = await response.json();
-            renderSite(data);
-        }
+        <div class="grid grid-cols-4 lg:flex lg:justify-center gap-2 sm:gap-6 px-3 sm:px-10 -mt-6 sm:-mt-10 lg:-mt-12 relative z-20">
+            <button onclick="showToast('Dúvidas')" class="bg-white p-2 sm:p-4 lg:px-10 lg:py-6 rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 flex flex-col items-center justify-center active:scale-95 transition-all hover:bg-gray-50">
+                <i class="fa-solid fa-circle-question text-gray-700 text-lg sm:text-3xl lg:text-4xl mb-1 sm:mb-2"></i>
+                <span class="text-[10px] sm:text-sm lg:text-base font-bold text-gray-700 text-center leading-tight">Dúvidas</span>
+            </button>
+            <button onclick="showToast('Atestados')" class="bg-white p-2 sm:p-4 lg:px-10 lg:py-6 rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 flex flex-col items-center justify-center active:scale-95 transition-all hover:bg-gray-50">
+                <i class="fa-solid fa-file-medical text-teal-600 text-lg sm:text-3xl lg:text-4xl mb-1 sm:mb-2"></i>
+                <span class="text-[10px] sm:text-sm lg:text-base font-bold text-teal-700 text-center leading-tight">Enviar<br class="lg:hidden"> Atestados</span>
+            </button>
+            <button onclick="showToast('Benefícios')" class="bg-white p-2 sm:p-4 lg:px-10 lg:py-6 rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 flex flex-col items-center justify-center active:scale-95 transition-all hover:bg-gray-50">
+                <i class="fa-solid fa-heart text-gray-600 text-lg sm:text-3xl lg:text-4xl mb-1 sm:mb-2"></i>
+                <span class="text-[10px] sm:text-sm lg:text-base font-bold text-gray-700 text-center leading-tight">Benefícios</span>
+            </button>
+            <button onclick="showToast('Avisos')" class="bg-white p-2 sm:p-4 lg:px-10 lg:py-6 rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 flex flex-col items-center justify-center active:scale-95 transition-all hover:bg-gray-50 relative">
+                <span class="absolute -top-2 -right-1 sm:-top-3 sm:-right-2 bg-red-500 text-white text-[10px] sm:text-sm font-bold w-5 h-5 sm:w-8 sm:h-8 rounded-full flex items-center justify-center border-2 border-white shadow-md">1</span>
+                <i class="fa-solid fa-bullhorn text-gray-600 text-lg sm:text-3xl lg:text-4xl mb-1 sm:mb-2"></i>
+                <span class="text-[10px] sm:text-sm lg:text-base font-bold text-gray-700 text-center leading-tight">Avisos</span>
+            </button>
+        </div>
 
-        function renderSite(data) {
-            const app = document.getElementById('app');
-            app.innerHTML = `
-                <div class="relative w-full max-w-[1920px] bg-[#f8f9fa] lg:rounded-[36px] lg:shadow-2xl lg:border-[8px] lg:border-gray-800 overflow-hidden flex flex-col pb-12">
-                    <div class="relative w-full h-40 lg:h-72 bg-gradient-to-br from-blue-600 to-blue-900 flex flex-col items-center justify-center rounded-b-[2rem] lg:rounded-b-[4rem]">
-                        <div class="z-10 bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-2xl shadow-2xl border-4 border-white transform -rotate-2">
-                            <h1 class="text-white font-black text-2xl lg:text-5xl italic tracking-wider text-center">${data.titulo_principal}</h1>
-                        </div>
-                    </div>
-
-                    <div class="px-6 mt-12 max-w-5xl mx-auto w-full">
-                        <div class="relative w-full h-44 lg:h-96 bg-white rounded-[3rem] overflow-hidden shadow-lg animate-float border-4 border-white">
-                            ${data.carrossel.map((item, i) => `
-                                <div class="carousel-item absolute inset-0 flex items-center justify-center ${i === 0 ? 'opacity-100' : 'opacity-0 scale-95'}" style="background: ${item.cor_fundo}">
-                                    <div class="text-center">
-                                        <img src="${item.imagem}" class="h-24 lg:h-48 mb-4 mx-auto object-contain">
-                                        <p class="font-black uppercase lg:text-3xl tracking-widest text-blue-900">${item.texto}</p>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 px-6 mt-12">
-                        ${data.categorias.map(cat => `
-                            <div onclick="window.open('${cat.link}', '_blank')" class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col h-32 lg:h-48 cursor-pointer hover:scale-105 transition-transform">
-                                <div class="flex-1 flex items-center justify-center bg-gray-50 text-4xl lg:text-6xl text-blue-500">
-                                    <i class="${cat.icone}"></i>
-                                </div>
-                                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 py-3 text-center">
-                                    <span class="text-white font-black text-xs lg:text-sm uppercase">${cat.nome}</span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
+        <div class="px-4 sm:px-10 mt-8 sm:mt-12 lg:mt-16 max-w-7xl mx-auto w-full">
+            <div class="relative w-full h-40 sm:h-64 lg:h-80 bg-blue-100 rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-lg border-2 border-white animate-float">
+                <div class="carousel-item absolute inset-0 opacity-100 scale-100 bg-sky-200 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-cloud text-white text-5xl sm:text-7xl lg:text-8xl mb-2 sm:mb-4"></i>
+                    <p class="text-sky-800 font-bold sm:text-2xl lg:text-3xl tracking-wide">Aviso de Segurança</p>
                 </div>
-            `;
-            startCarousel();
-        }
+                <div class="carousel-item absolute inset-0 opacity-0 scale-95 bg-green-200 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-industry text-green-700 text-5xl sm:text-7xl lg:text-8xl mb-2 sm:mb-4"></i>
+                    <p class="text-green-800 font-bold sm:text-2xl lg:text-3xl tracking-wide">Metas do Mês</p>
+                </div>
+            </div>
+            <div class="flex justify-center gap-2 sm:gap-3 mt-4 sm:mt-6" id="dots-container"></div>
+        </div>
 
-        function startCarousel() {
-            let current = 0;
-            const items = document.querySelectorAll('.carousel-item');
-            if (items.length <= 1) return;
-            setInterval(() => {
-                items[current].classList.replace('opacity-100', 'opacity-0');
-                current = (current + 1) % items.length;
-                items[current].classList.replace('opacity-0', 'opacity-100');
-            }, 5000);
-        }
+        <hr class="my-8 lg:my-12 mx-8 sm:mx-16 border-gray-200">
 
-        loadContent();
-    </script>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 px-4 sm:px-10">
+            <div onclick="showToast('Transporte')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="flex-1 bg-blue-50 flex justify-center items-center">
+                    <i class="fa-solid fa-bus text-blue-500 text-4xl sm:text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[11px] sm:text-sm">TRANSPORTE</span>
+                </div>
+            </div>
+
+            <div onclick="showToast('Cardápio')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="flex-1 bg-orange-50 flex justify-center items-center">
+                    <i class="fa-solid fa-utensils text-orange-500 text-4xl sm:text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[11px] sm:text-sm">CARDÁPIO</span>
+                </div>
+            </div>
+
+            <div onclick="showToast('Calendário')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="flex-1 bg-gray-50 flex justify-center items-center">
+                    <i class="fa-regular fa-calendar-days text-gray-500 text-4xl sm:text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[11px] sm:text-sm">CALENDÁRIO</span>
+                </div>
+            </div>
+
+            <div onclick="showToast('Aniversários')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="flex-1 bg-red-50 flex justify-center items-center">
+                    <i class="fa-solid fa-cake-candles text-red-400 text-4xl sm:text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[11px] sm:text-sm">ANIVERSÁRIO</span>
+                </div>
+            </div>
+
+            <div onclick="showToast('CIPA')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-green-600 border-2 border-white text-white rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center shadow-md z-10">
+                    <i class="fa-solid fa-plus text-sm sm:text-xl"></i>
+                </div>
+                <div class="flex-1 bg-green-50 flex justify-center items-center">
+                    <i class="fa-solid fa-hard-hat text-yellow-600 text-4xl sm:text-6xl mt-2"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[11px] sm:text-sm">CIPA</span>
+                </div>
+            </div>
+
+            <div onclick="showToast('Cursos')" class="bg-white rounded-2xl sm:rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-28 sm:h-40 relative cursor-pointer active:scale-95 transition-transform hover:shadow-lg hover:-translate-y-1">
+                <div class="absolute bottom-10 sm:bottom-14 right-2 bg-gray-800 text-white text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 shadow z-10">
+                    <i class="fa-solid fa-lock text-[8px] sm:text-[10px]"></i> RESTRITO
+                </div>
+                <div class="flex-1 bg-indigo-50 flex justify-center items-center">
+                    <i class="fa-solid fa-laptop-code text-indigo-500 text-4xl sm:text-6xl mb-2"></i>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-400 h-8 sm:h-12 flex items-center justify-center">
+                    <span class="text-white font-black tracking-wider text-[10px] sm:text-xs leading-tight text-center">CURSOS &<br class="sm:hidden"> TUTORIAIS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 sm:mt-12 px-4 sm:px-10 max-w-5xl mx-auto w-full cursor-pointer active:scale-95 transition-transform hover:-translate-y-1" onclick="showToast('Ouvidoria')">
+            <div class="bg-teal-500 rounded-full flex items-center p-1.5 sm:p-2.5 shadow-lg relative overflow-hidden">
+                <div class="bg-gray-800 text-white rounded-full py-2 sm:py-4 px-4 sm:px-8 flex items-center justify-center gap-2 sm:gap-4 z-10 w-3/5 sm:w-1/2">
+                    <i class="fa-solid fa-user-secret text-lg sm:text-3xl"></i>
+                    <span class="font-black text-sm sm:text-xl tracking-widest">OUVIDORIA</span>
+                </div>
+                <div class="w-2/5 sm:w-1/2 pl-3 sm:pl-8">
+                    <ul class="text-white text-[8px] sm:text-sm font-bold leading-tight flex flex-col sm:flex-row sm:gap-6 justify-center">
+                        <li>• Reclamação</li>
+                        <li>• Sugestão</li>
+                        <li>• Outros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="toast" class="fixed bottom-5 sm:bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none z-50 text-sm sm:text-lg font-bold flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-green-400"></i>
+    <span id="toast-message">Ação registrada!</span>
+</div>
+
+<script>
+    // Carrossel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+    const dotsContainer = document.getElementById('dots-container');
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = `w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${i === 0 ? 'bg-blue-600 w-6 sm:w-8' : 'bg-gray-300'}`;
+        dot.id = `dot-${i}`;
+        dotsContainer.appendChild(dot);
+    });
+
+    setInterval(() => {
+        slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+        slides[currentSlide].classList.replace('scale-100', 'scale-95');
+        document.getElementById(`dot-${currentSlide}`).classList.replace('bg-blue-600', 'bg-gray-300');
+        document.getElementById(`dot-${currentSlide}`).classList.remove('w-6', 'sm:w-8');
+
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+        slides[currentSlide].classList.replace('scale-95', 'scale-100');
+        document.getElementById(`dot-${currentSlide}`).classList.replace('bg-gray-300', 'bg-blue-600');
+        document.getElementById(`dot-${currentSlide}`).classList.add('w-6', 'sm:w-8');
+    }, 4500);
+
+    // Toast
+    let toastTimeout;
+    function showToast(area) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-message').innerText = `Abrindo ${area}...`;
+        toast.classList.remove('opacity-0');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => toast.classList.add('opacity-0'), 2000);
+    }
+</script>
+
 </body>
 </html>
