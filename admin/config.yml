@@ -1,0 +1,31 @@
+backend:
+  name: github
+  repo: culturabrasilechina/montagem
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "portal"
+    label: "Conteúdo do Site"
+    files:
+      - file: "content/portal.json"
+        label: "Portal Principal"
+        name: "portal_data"
+        fields:
+          - {label: "Título Principal do Banner", name: "titulo_principal", widget: "string"}
+          - label: "Banners do Carrossel"
+            name: "carrossel"
+            widget: "list"
+            fields:
+              - {label: "Texto do Banner", name: "texto", widget: "string"}
+              - {label: "Imagem", name: "imagem", widget: "image"}
+              - {label: "Cor de Fundo", name: "cor_fundo", widget: "string", default: "#e0f2fe"}
+          - label: "Módulos (Cards)"
+            name: "categorias"
+            widget: "list"
+            fields:
+              - {label: "Nome", name: "nome", widget: "string"}
+              - {label: "Link de Destino", name: "link", widget: "string"}
+              - {label: "Ícone (FontAwesome)", name: "icone", widget: "string", default: "fa-solid fa-link"}
